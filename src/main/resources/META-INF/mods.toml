@@ -1,0 +1,25 @@
+modLoader="javafxmod"
+loaderVersion="[61,]"
+license="MIT"
+
+[[mods]]
+modId="elitras"
+displayName="Elitras Swap"
+version="1.0.0"
+description="Auto-swap between elytra and armor based on held items in Minecraft 1.21.11 with Forge"
+authors="Developer"
+logoFile=""
+
+[[dependencies.elitras]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.21.11,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.elitras]]
+modId="forge"
+mandatory=true
+versionRange="[61,)"
+ordering="NONE"
+side="BOTH"
