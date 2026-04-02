@@ -1,0 +1,42 @@
+name: Build Forge Mod
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK 21
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    
+    - name: Build with Gradle
+      run: |
+        chmod +x ./gradlew
+        ./gradlew clean build
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: forge-mod
+        path: build/libs/elitras-swap-*.jar
+    
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: Forge Mod Release
+        draft: false
+        prerelease: false
